@@ -1,4 +1,5 @@
 import axios from "axios";
+import { commentEndpoint, deletePostEndpoint, likePostEndpoint, newPostEndpoint, updateCaptionEndpoint } from "../endpoints/post";
 
 export const likePost = (id) => async (dispatch) => {
   try {
@@ -6,7 +7,7 @@ export const likePost = (id) => async (dispatch) => {
       type: "likeRequest",
     });
 
-    const { data } = await axios.get(`/api/v1/post/${id}`);
+    const { data } = await axios.get(`${likePostEndpoint}/${id}`);
     dispatch({
       type: "likeSuccess",
       payload: data.message,
@@ -26,7 +27,7 @@ export const addCommentOnPost = (id, comment) => async (dispatch) => {
     });
 
     const { data } = await axios.put(
-      `/api/v1/post/comment/${id}`,
+      `${commentEndpoint}/${id}`,
       {
         comment,
       },
@@ -54,7 +55,7 @@ export const deleteCommentOnPost = (id, commentId) => async (dispatch) => {
       type: "deleteCommentRequest",
     });
 
-    const { data } = await axios.delete(`/api/v1/post/comment/${id}`, {
+    const { data } = await axios.delete(`${commentEndpoint}/${id}`, {
       data: { commentId },
     });
     dispatch({
@@ -76,7 +77,7 @@ export const createNewPost = (caption, image) => async (dispatch) => {
     });
 
     const { data } = await axios.post(
-      `/api/v1/post/upload`,
+      newPostEndpoint,
       {
         caption,
         image,
@@ -106,7 +107,7 @@ export const updatePost = (caption, id) => async (dispatch) => {
     });
 
     const { data } = await axios.put(
-      `/api/v1/post/${id}`,
+      `${updateCaptionEndpoint}/${id}`,
       {
         caption,
       },
@@ -134,7 +135,7 @@ export const deletePost = (id) => async (dispatch) => {
       type: "deletePostRequest",
     });
 
-    const { data } = await axios.delete(`/api/v1/post/${id}`);
+    const { data } = await axios.delete(`${deletePostEndpoint}/${id}`);
     dispatch({
       type: "deletePostSuccess",
       payload: data.message,
