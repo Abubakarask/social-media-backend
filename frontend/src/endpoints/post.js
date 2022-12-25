@@ -1,7 +1,7 @@
 let URL;
 
 if (process.env.NODE_ENV === 'development') {
-    URL = URL;
+    URL = process.env.REACT_APP_LOCAL_URI;
 } else {
     URL = process.env.REACT_APP_PROD_URI;
 }

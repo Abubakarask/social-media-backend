@@ -1,7 +1,7 @@
 import axios from "axios";
 import { forgotPasswordEndpoint, loginEndpoint, logoutEndpoint, registerEndpoint, resetPasswordEndpoint, updatePasswordEndpoint } from "../endpoints/auth";
 import { myPostsEndpoint, postOfFollowingEndpoint } from "../endpoints/post";
-import { deleteMyProfileEndpoint, followUserEndpoint, getUserPostsEndpoint, myProfileEndpoint, updateProfileEndpoint, userPostsEndpoint, userProfileEndpoint } from "../endpoints/user";
+import { deleteMyProfileEndpoint, followUserEndpoint, myProfileEndpoint, updateProfileEndpoint, userPostsEndpoint, userProfileEndpoint } from "../endpoints/user";
 
 export const loginUser = (email, password) => async (dispatch) => {
   try {
@@ -16,7 +16,9 @@ export const loginUser = (email, password) => async (dispatch) => {
         headers: {
           "Content-Type": "application/json",
         },
-      }
+        withCredentials: true, 
+        credentials: 'include'
+      },
     );
 
     dispatch({
@@ -37,7 +39,10 @@ export const loadUser = () => async (dispatch) => {
       type: "LoadUserRequest",
     });
 
-    const { data } = await axios.get(myProfileEndpoint);
+    const { data } = await axios.get(myProfileEndpoint, {
+      withCredentials: true,
+      credentials: 'include'
+    });
 
     dispatch({
       type: "LoadUserSuccess",
@@ -57,7 +62,10 @@ export const getFollowingPosts = () => async (dispatch) => {
       type: "postOfFollowingRequest",
     });
 
-    const { data } = await axios.get(postOfFollowingEndpoint);
+    const { data } = await axios.get(postOfFollowingEndpoint, {
+      withCredentials: true,
+      credentials: 'include'
+    });
     dispatch({
       type: "postOfFollowingSuccess",
       payload: data.posts,
@@ -76,7 +84,10 @@ export const getMyPosts = () => async (dispatch) => {
       type: "myPostsRequest",
     });
 
-    const { data } = await axios.get(myPostsEndpoint);
+    const { data } = await axios.get(myPostsEndpoint, {
+      withCredentials: true,
+      credentials: 'include'
+    });
     dispatch({
       type: "myPostsSuccess",
       payload: data.posts,
@@ -96,7 +107,10 @@ export const getAllUsers = (name = "") =>
         type: "allUsersRequest",
       });
 
-      const { data } = await axios.get(`${getAllUsers}?name=${name}`);
+      const { data } = await axios.get(`${getAllUsers}?name=${name}`, {
+        withCredentials: true,
+        credentials: 'include'
+      });
       dispatch({
         type: "allUsersSuccess",
         payload: data.users,
@@ -115,7 +129,10 @@ export const logoutUser = () => async (dispatch) => {
       type: "LogoutUserRequest",
     });
 
-    await axios.get(logoutEndpoint);
+    await axios.get(logoutEndpoint, {
+      withCredentials: true,
+      credentials: 'include'
+    });
 
     dispatch({
       type: "LogoutUserSuccess",
@@ -142,6 +159,8 @@ export const registerUser =
           headers: {
             "Content-Type": "application/json",
           },
+          withCredentials: true,
+          credentials: 'include'
         }
       );
 
@@ -170,6 +189,8 @@ export const updateProfile = (name, email, avatar) => async (dispatch) => {
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials: true,
+        credentials: 'include'
       }
     );
 
@@ -199,6 +220,8 @@ export const updatePassword =
           headers: {
             "Content-Type": "application/json",
           },
+          withCredentials: true,
+          credentials: 'include'
         }
       );
 
@@ -220,7 +243,10 @@ export const deleteMyProfile = () => async (dispatch) => {
       type: "deleteProfileRequest",
     });
 
-    const { data } = await axios.delete(deleteMyProfileEndpoint);
+    const { data } = await axios.delete(deleteMyProfileEndpoint, {
+      withCredentials: true,
+      credentials: 'include'
+    });
 
     dispatch({
       type: "deleteProfileSuccess",
@@ -249,6 +275,8 @@ export const forgotPassword = (email) => async (dispatch) => {
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials: true,
+        credentials: 'include'
       }
     );
 
@@ -279,6 +307,8 @@ export const resetPassword = (token, password) => async (dispatch) => {
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials: true,
+        credentials: 'include'
       }
     );
 
@@ -300,7 +330,10 @@ export const getUserPosts = (id) => async (dispatch) => {
       type: "userPostsRequest",
     });
 
-    const { data } = await axios.get(`${userPostsEndpoint}/${id}`);
+    const { data } = await axios.get(`${userPostsEndpoint}/${id}`, {
+      withCredentials: true,
+      credentials: 'include'
+    });
     dispatch({
       type: "userPostsSuccess",
       payload: data.posts,
@@ -319,7 +352,10 @@ export const getUserProfile = (id) => async (dispatch) => {
       type: "userProfileRequest",
     });
 
-    const { data } = await axios.get(`${userProfileEndpoint}/${id}`);
+    const { data } = await axios.get(`${userProfileEndpoint}/${id}`, {
+      withCredentials: true,
+      credentials: 'include'
+    });
     dispatch({
       type: "userProfileSuccess",
       payload: data.user,
@@ -338,7 +374,10 @@ export const followAndUnfollowUser = (id) => async (dispatch) => {
       type: "followUserRequest",
     });
 
-    const { data } = await axios.get(`${followUserEndpoint}/${id}`);
+    const { data } = await axios.get(`${followUserEndpoint}/${id}`,{
+      withCredentials: true,
+      credentials: 'include'
+    });
     dispatch({
       type: "followUserSuccess",
       payload: data.message,

@@ -7,7 +7,10 @@ export const likePost = (id) => async (dispatch) => {
       type: "likeRequest",
     });
 
-    const { data } = await axios.get(`${likePostEndpoint}/${id}`);
+    const { data } = await axios.get(`${likePostEndpoint}/${id}`, {
+      withCredentials: true,
+      credentials: 'include'
+    });
     dispatch({
       type: "likeSuccess",
       payload: data.message,
@@ -35,6 +38,8 @@ export const addCommentOnPost = (id, comment) => async (dispatch) => {
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials: true,
+        credentials: 'include'
       }
     );
     dispatch({
@@ -57,7 +62,8 @@ export const deleteCommentOnPost = (id, commentId) => async (dispatch) => {
 
     const { data } = await axios.delete(`${commentEndpoint}/${id}`, {
       data: { commentId },
-    });
+    },
+    );
     dispatch({
       type: "deleteCommentSuccess",
       payload: data.message,
@@ -86,6 +92,8 @@ export const createNewPost = (caption, image) => async (dispatch) => {
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials: true,
+        credentials: 'include'
       }
     );
     dispatch({
@@ -115,6 +123,8 @@ export const updatePost = (caption, id) => async (dispatch) => {
         headers: {
           "Content-Type": "application/json",
         },
+        withCredentials: true,
+        credentials: 'include'
       }
     );
     dispatch({
@@ -135,7 +145,10 @@ export const deletePost = (id) => async (dispatch) => {
       type: "deletePostRequest",
     });
 
-    const { data } = await axios.delete(`${deletePostEndpoint}/${id}`);
+    const { data } = await axios.delete(`${deletePostEndpoint}/${id}`, {
+      withCredentials: true,
+      credentials: 'include'
+    });
     dispatch({
       type: "deletePostSuccess",
       payload: data.message,
