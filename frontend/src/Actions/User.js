@@ -151,6 +151,7 @@ export const registerUser =
       dispatch({
         type: "RegisterRequest",
       });
+      console.log("here");
 
       const { data } = await axios.post(
         registerEndpoint,
@@ -163,6 +164,7 @@ export const registerUser =
           credentials: 'include'
         }
       );
+      console.log("thetre");
 
       dispatch({
         type: "RegisterSuccess",
