@@ -7,6 +7,7 @@ const cloudinary = require("cloudinary");
 exports.register = async (req, res) => {
   try {
     const { name, email, password, avatar } = req.body;
+    console.log("hr")
 
     let user = await User.findOne({ email });
     if (user) {
@@ -14,10 +15,12 @@ exports.register = async (req, res) => {
         .status(400)
         .json({ success: false, message: "User already exists" });
     }
+    console.log("hmm");
 
     const myCloud = await cloudinary.v2.uploader.upload(avatar, {
       folder: "avatars",
     });
+    console.log("uploaded");
 
     user = await User.create({
       name,
@@ -25,6 +28,8 @@ exports.register = async (req, res) => {
       password,
       avatar: { public_id: myCloud.public_id, url: myCloud.secure_url },
     });
+
+    console.log("created");
 
     const token = await user.generateToken();
 

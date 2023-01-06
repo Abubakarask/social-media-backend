@@ -8,7 +8,7 @@ const {
   commentOnPost,
   deleteComment,
 } = require("../controllers/post");
-const { isAuthenticated } = require("../middlewares/auth");
+const { isAuthenticated } = require("../middlewares/auth"); 
 
 const router = express.Router();
 

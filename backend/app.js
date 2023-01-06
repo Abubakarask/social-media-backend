@@ -20,7 +20,7 @@ app.use(
     credentials: true,
   }),
 );
-
+console.log(process.env.PORT);
 // Importing Routes
 const post = require("./routes/post");
 const user = require("./routes/user");
